@@ -1,0 +1,15 @@
+﻿type,number
+DDoS,5431
+PortScan,158930
+Bot,1966
+Infiltration,36
+Web Attack Brute Force,1507
+Web Attack XSS,652
+Web Attack Sql Injection,21
+FTP-Patator,7938
+SSH-Patator,5897
+DoS slowloris,5796
+DoS Slowhttptest,5499
+DoS Hulk,231073
+DoS GoldenEye,10293
+Heartbleed,11
