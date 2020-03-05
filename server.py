@@ -29,7 +29,6 @@ class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
             (r'/', IndexHandler),          #index既是登录页面也是首页面
-            (r'/index', IndexHandler),
             (r'/user', UserHandler),
             (r'/forgetpwd', SendEmailHandler),
             (r'/register',RegisterHandler),
