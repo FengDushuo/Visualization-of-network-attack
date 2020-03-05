@@ -6,10 +6,10 @@ from email.mime.text import MIMEText
 from email.utils import formataddr
 from email.header import Header
 
-my_sendername = "冯"       # 发件人账号名 例如“yangfan”
-my_sender="15370067029@163.com"    # 发件人邮箱账号 例如“1224556@163.com”
-my_pass = "19971130fds"            # 发件人邮箱密码 例如“123456”
-mail_host = "stmp.163.com"         # SMTP服务器 例如“stmp.163.com”
+my_sendername = "***"       # 发件人账号名 例如“yangfan”
+my_sender="***"    # 发件人邮箱账号 例如“1224556@163.com”
+my_pass = "***"            # 发件人邮箱密码 例如“123456”
+mail_host = "***"         # SMTP服务器 例如“stmp.163.com”
 
 def send_email(message,subject,to_address):
     ret=True
