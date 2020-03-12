@@ -29,6 +29,22 @@ def mkdir(path,file_dir):
         print(to_mkdir + " 目录已存在")
         return False
 
+#在file_dir目录下新建目录path
+def absolutepath_mkdir(path,file_dir): 
+    to_mkdir = file_dir + "\\" + path
+    isExists = os.path.exists(to_mkdir)
+    # 判断结果
+    if not isExists:
+        # 如果不存在则创建目录
+        # 创建目录操作函数
+        os.mkdir(to_mkdir)
+        print(to_mkdir + " 创建成功")
+        return True
+    else:
+        # 如果目录存在则不创建，并提示目录已存在
+        print(to_mkdir + " 目录已存在")
+        return False
+
 #列出rootdir文件夹下所有文件(不含子目录)
 def list_all_files(rootdir):
     files_list = []

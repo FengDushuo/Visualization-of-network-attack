@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>网络流量数据可视化系统</title>
+    <meta name="Keywords" content="网络流量数据上传，数据可视化" />
+    <meta name="Description" content="," />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link href="../static/css/attackshow.css" type="text/css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="/static/css/select_styles.css" />
+    <script src="../static/js/user.js" type="text/javascript"></script>
+
+    <style>
+      path.link {
+        fill: none;
+        stroke: #666;
+        stroke-width: 1.5px;
+      }
+
+      marker#licensing {
+        fill: green;
+      }
+
+      path.link.licensing {
+        stroke: green;
+      }
+
+      path.link.resolved {
+        stroke-dasharray: 0,2 1;
+      }
+
+      circle {
+        fill: #ccc;
+        stroke: #333;
+        stroke-width: 1.5px;
+      }
+
+      circle .fixed{
+        fill:#f00
+      }
+
+      text {
+        font: 10px sans-serif;
+        pointer-events: none;
+      }
+
+      text.shadow {
+        stroke: #fff;
+        stroke-width: 3px;
+        stroke-opacity: .8;
+      }
+
+      #submit_click{ margin-top:32px; height:40px;}
+      #submit_click a 
+      {
+          
+      
+          text-decoration:none;
+        background:#2f435e;
+        color:#f2f2f2;
+        
+        padding: 10px 30px 10px 30px;
+        font-size:16px;
+        font-family: 微软雅黑,宋体,Arial,Helvetica,Verdana,sans-serif;
+        font-weight:bold;
+        border-radius:3px;
+        
+        -webkit-transition:all linear 0.30s;
+        -moz-transition:all linear 0.30s;
+        transition:all linear 0.30s;
+        
+        }
+        #submit_click a:hover { background:#385f9e; }
+        
+  </style>
+    
+  </head>
+  
+  <body>
+    <div id="section" init="true" class="section section1">
+      <header class="header">
+        <div class="wrap">
+          <h1 class="fl">
+            <a href="/user" class="fl logo">
+              <img class="usericon" src="../static/img/user_head.jpg" alt="用户头像" width="49" height="49" />
+              <div class='userdata'>
+                <label>
+                  <div class='icon'>
+                    <img alt="" src='../static/img/user_icon_copy.png'>
+                    {{user[1]}}
+                  </div>
+                </label>
+                <label>
+                    <div class='icon'>
+                      <img alt="" src='../static/img/email_icon.png'>
+                      {{user[3]}}
+                    </div>
+                </label>
+                </div>
+            </a>
+          </h1>
+          <div class="fr">
+            <div class="top">
+              <span class="call">
+              </span>
+              <span class="call_tel">
+                188-9680-9086
+              </span>
+              <a>
+                <span class="email">
+                </span>
+                1369162653@qq.com
+              </a>
+              <a class="ewm">
+                <span class="weixin">
+                </span>
+                冯读硕
+                <img src="../static/img/weixin_code.jpg"
+                width="258" height="258" alt="微信" />
+              </a>
+            </div>
+            <nav class="nav">
+              <ul class="fix">
+                <li id="menu1">
+                  <a href="/user">
+                    系统首页
+                  </a>
+                </li>
+                <li id="menu2">
+                  <a href="/cases">
+                    实验案例
+                  </a>
+                </li>
+              </ul>
+              <span class="nav_icon">
+              </span>
+            </nav>
+          </div>
+        </div>
+      </header>
+      <script type="text/javascript">
+        document.getElementById("menu2").className = "on";
+      </script>
+    </div>
+
+    <div class="news_tab">
+        <ul class="fix">
+          <li class="cyan">
+            <a href="#" >
+              <h2>
+                攻击类型统计
+              </h2>
+              <p class="eg">
+                attack type
+              </p>
+            </a>
+          </li>
+          <li class="purple">
+            <a href="/inputdata_ips" >
+              <h2>
+                攻击源IP和目的IP
+              </h2>
+              <p class="eg">
+                source ip & destination ip
+              </p>
+            </a>
+          </li>
+          <li class="green">
+            <a href="#" >
+              <h2>
+                时间戳对IP
+              </h2>
+              <p class="eg">
+                timestamp & ip
+              </p>
+            </a>
+          </li>
+          <li class="red">
+            <a href="/inputdata_timestamp" >
+              <h2>
+                时间戳对其他
+              </h2>
+              <p class="eg">
+                timestamp & other
+              </p>
+            </a>
+          </li>
+          <li class="blue">
+            <a href="#">
+              <h2>
+                其他对其他
+              </h2>
+              <p class="eg">
+                other & other
+              </p>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+    <div class="function_tab">
+        <div class="fix" id="function_ul">
+            <div class="red" id="function_li">
+              <h1>About Timestamp</h1>
+              <div class = "ipshowleft">
+                <form id="select_li" class = "white">
+                  <h2>please choose one label to show by timestamp</h2>
+                  <div class = "alonelabel">
+                    <div class="drop" style=" overflow-y:auto;height: 200px;">
+                        <div class="option active placeholder" data-value="placeholder">
+                          Choose One Label
+                        </div>
+                        {% for label in firstlabels %}
+                          <div class="option" data-value="{{label}}">
+                            {{label}}
+                          </div>
+                        {% end %}
+                    </div>
+                    <div id="choosethis" style="display: none;"></div>
+                  </div>
+                  <div id="submit_click">
+                    <a id="onelabelsubmit" style="margin-left: 130px;" href="#">确定</a>
+                  </div>
+            
+                </form>
+                
+              </div>
+              <div class = "ipshowright">
+                <form id="select_li" class = "white">
+                  <h2>please choose two labels to show by timestamp</h2>
+                  <div class = "firstlabel">
+                    <div class="drop" style=" overflow-y:auto;height: 200px;">
+                        <div class="option active placeholder" data-value="placeholder">
+                          Choose First Label
+                        </div>
+                        {% for label in firstlabels %}
+                          <div class="option" data-value="{{label}}">
+                            {{label}}
+                          </div>
+                        {% end %}
+                    </div>
+
+                  </div>
+                  <div class = "secondlabel">
+                    <div class="drop" style=" overflow-y:auto;height: 200px;">
+                        <div class="option active placeholder" data-value="placeholder">
+                          Choose First Label
+                        </div>
+                        {% for label in firstlabels %}
+                          <div class="option" data-value="{{label}}">
+                            {{label}}
+                          </div>
+                        {% end %}
+                    </div>
+                  </div>
+                  <div id="submit_click">
+                    <a id="twolabelssubmit" style="margin-left: 130px;">确定</a>
+                  </div>
+                  <div id="choosefirst" style="display: none;"></div>
+                  <div id="choosesceond" style="display: none;"></div>
+                </form>
+                <script type="text/javascript" src="/static/js/timestamp_input.js"></script>
+                <script type="text/javascript" src="/static/js/stopExecutionOnTimeout.js"></script>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id = "fileurl" style="display: none;">{{filename}}</div>
+    <!-- <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script> -->
+
+
+  
+
+    <div class="right" id="fp-nav">
+      <ul>
+        <li>
+          <a class="active" index="0">
+            <span>
+            </span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </body>
+
+</html>

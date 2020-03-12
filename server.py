@@ -22,6 +22,11 @@ from handlers.csvsplit import CsvsplitHandler
 from handlers.csvtojson import CsvtojsonHandler
 from handlers.attackshow import AttackshowHandler
 from handlers.attackshow import AttackipsHandler,AttacktypeHandler,OtherotherHandler,TimestampipHandler,TimestampotherHandler
+from handlers.inputdata import InputdataHandler
+from handlers.inputdata import InputdataipsHandler,InputdatatimestampHandler
+from handlers.inputdata_operate import UploadFileHandler
+from handlers.inputdata_show import Inputdatashow_ipsHandler,Inputdatashow_timestampHandler,Inputdatashow_timestamp_onelabelHandler,Inputdatashow_timestamp_twolabelHandler
+
 
 define("port", default = 8000, help = "run on the given port", type = int)
 
@@ -45,7 +50,15 @@ class Application(tornado.web.Application):
             (r"/attackips",AttackipsHandler),
             (r"/timestampip",TimestampipHandler),
             (r"/timestampother",TimestampotherHandler),
-            (r"/otherother",OtherotherHandler)
+            (r"/otherother",OtherotherHandler),
+            (r"/inputdata",InputdataHandler),
+            (r"/inputdata_ips",InputdataipsHandler),
+            (r"/upload_file",UploadFileHandler),
+            (r"/inputdatashow_ips",Inputdatashow_ipsHandler),
+            (r"/inputdata_timestamp",InputdatatimestampHandler),
+            (r"/inputdatashow_timestamp",Inputdatashow_timestampHandler),
+            (r"/inputdatashow_timestamp_onelabel",Inputdatashow_timestamp_onelabelHandler),
+            (r"/inputdatashow_timestamp_twolabel",Inputdatashow_timestamp_twolabelHandler)
         ]
 
         settings = dict(
