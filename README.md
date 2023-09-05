@@ -143,7 +143,7 @@ supervisord是用Python实现的一款很是实用的进程管理工具。使用
 
 supervisor配置文件中添加：
 
-| 
+```
 [program:tornado-8000]
 command=python /var/www/main.py --port=8000
 directory=/var/www
@@ -161,12 +161,12 @@ autorestart=true
 redirect_stderr=true
 stdout_logfile=/var/log/tornado.log
 loglevel=info 
-|
-|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+```
+
 
 对于更复杂的部署，建议独立启动进程，并让每个进程侦听不同的端口。当每个进程使用不同的端口时，通常需要一个外部负载均衡器（如nginx）向外部访问者提供一个地址。下面给出一个nginx的配置文件，nginx和tornado服务器在同一台机器上运行，四台tornado服务器在端口8000-8003上运行：
 
-| 
+```
 user nginx;
 worker_processes 1;
 
@@ -238,8 +238,7 @@ http {
         }
     }
 } 
-|
-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+```
 
 静态文件已经在程序中指定了路径：
 
@@ -482,136 +481,75 @@ users数据表中字段详情：
 # 配置脚本文件
 
 ## 数据库配置文件
-
+```
 import pymysql
-
 mysqluser="root"
-
 mysqlpassword="19971130"
-
 logindatabase="login_db"
-
 imagedatabase="faceimage"
-
 hostsrc="localhost"
-
 conn = pymysql.connect(host=hostsrc,port=3306,user=mysqluser,password="19971130",charset='utf8')
-
 cursor = conn.cursor()
-
 createloginsql="CREATE DATABASE IF NOT EXISTS "+logindatabase
-
 createfaceimgsql="CREATE DATABASE IF NOT EXISTS "+imagedatabase
-
 cursor.execute(createfaceimgsql)
-
 cursor.execute(createloginsql)
-
-logconnect = pymysql.connect( \#连接数据库服务器
-
-user=mysqluser, \#本地mysql用户名
-
-password="19971130", \#本地MySQL密码
-
-host=hostsrc,
-
-port=3306,
-
-db=logindatabase,
-
-charset="utf8"
-
+logconnect = pymysql.connect(    #连接数据库服务器
+    user=mysqluser,              #本地mysql用户名
+    password="19971130",          #本地MySQL密码
+    host=hostsrc,
+    port=3306,
+    db=logindatabase,
+    charset="utf8"
 )
-
-imagconnect = pymysql.connect( \#连接数据库服务器
-
-user=mysqluser,
-
-password="19971130",
-
-host=hostsrc,
-
-port=3306,
-
-db=imagedatabase,
-
-charset="utf8"
-
+imagconnect = pymysql.connect(    #连接数据库服务器
+    user=mysqluser,
+    password="19971130",
+    host=hostsrc,
+    port=3306,
+    db=imagedatabase,
+    charset="utf8"
 )
-
-loginconnect = imagconnect \#连接数据库服务器
-
-loginconn = loginconnect.cursor() \#创建操作游标
-
+loginconnect = imagconnect               #连接数据库服务器        
+loginconn = loginconnect.cursor()        #创建操作游标
 loginconn.execute("create table IF NOT EXISTS students(id int(11),stuname varchar(20),stuid varchar(20)PRIMARY KEY,imagedata MEDIUMBLOB)")
-
-loginconnect = logconnect \#连接数据库服务器
-
-loginconn = loginconnect.cursor() \#创建操作游标
-
+loginconnect = logconnect                #连接数据库服务器   
+loginconn = loginconnect.cursor()        #创建操作游标
 loginconn.execute("CREATE TABLE IF NOT EXISTS users (id int(11) PRIMARY KEY ,username VARCHAR(20),password VARCHAR(40),email VARCHAR(40))")
+```
 
 ## 邮箱配置文件
-
+```
 import smtplib
-
 from email.mime.text import MIMEText
-
 from email.utils import formataddr
-
 from email.header import Header
-
-my_sendername = "" \# 发件人账号名 例如“fengdushuo”
-
-my_sender="" \# 发件人邮箱账号 例如“1224556@163.com”
-
-my_pass = "" \# 发件人邮箱密码 例如“123456”
-
-mail_host = "" \# SMTP服务器 例如“stmp.163.com”
-
+my_sendername = ""       # 发件人账号名 例如“fengdushuo”
+my_sender=""    # 发件人邮箱账号 例如“1224556@163.com”
+my_pass = ""            # 发件人邮箱密码 例如“123456”
+mail_host = ""         # SMTP服务器 例如“stmp.163.com”
 def send_email(message,subject,to_address):
-
-ret=True
-
-try:
-
-msg=MIMEText(message,'html','utf-8')
-
-msg['From']=formataddr([my_sendername,my_sender]) \# 括号里的对应发件人邮箱昵称、发件人邮箱账号
-
-msg['To']=formataddr(to_address) \# 括号里的对应收件人邮箱昵称、收件人邮箱账号
-
-msg['Subject']= Header(subject, 'utf-8').encode() \# 邮件的主题
-
-server=smtplib.SMTP_SSL("smtp.163.com", 465) \# 发件人邮箱中的SMTP服务器，端口是25
-
-server.login(my_sender, my_pass) \# 括号中对应的是发件人邮箱账号、邮箱密码
-
-server.sendmail(my_sender,[to_address[1],"\*\*\*"],msg.as_string()) \# 括号中对应的是发件人邮箱账号、收件人邮箱账号、发送邮件
-
-server.quit() \# 关闭连接
-
-except smtplib.SMTPException as e:
-
-print(e)
-
-ret=False
-
-return ret
-
-\# 测试sendemail
-
-\# token="khsadlkhdkajdhkajsdbanmdbadabhdjasdhsmnj"
-
-\# message ="""\<h1\>找回密码\</h1\>点击下面的链接重置密码\<a href="http://127.0.0.1:8000/modify?token="""+token+""""\>http://127.0.0.1:8000/modify?token="""+token
-
-\# ret=send_email(message,"修改密码",["fengdushuo","1369162653@qq.com"])
-
-\# if ret:
-
-\# print("邮件发送成功")
-
-\# else:
-
-\# print("邮件发送失败")
-
+    ret=True
+    try:
+        msg=MIMEText(message,'html','utf-8')
+        msg['From']=formataddr([my_sendername,my_sender])   # 括号里的对应发件人邮箱昵称、发件人邮箱账号
+        msg['To']=formataddr(to_address)                   # 括号里的对应收件人邮箱昵称、收件人邮箱账号
+        msg['Subject']= Header(subject, 'utf-8').encode()  # 邮件的主题
+ 
+        server=smtplib.SMTP_SSL("smtp.163.com", 465)        # 发件人邮箱中的SMTP服务器，端口是25
+        server.login(my_sender, my_pass)                   # 括号中对应的是发件人邮箱账号、邮箱密码
+        server.sendmail(my_sender,[to_address[1],"***"],msg.as_string())       # 括号中对应的是发件人邮箱账号、收件人邮箱账号、发送邮件
+        server.quit()  # 关闭连接
+    except smtplib.SMTPException as e: 
+        print(e)
+        ret=False
+    return ret
+# 测试sendemail 
+# token="khsadlkhdkajdhkajsdbanmdbadabhdjasdhsmnj"
+# message ="""<h1>找回密码</h1>点击下面的链接重置密码<a href="http://127.0.0.1:8000/modify?token="""+token+"""">http://127.0.0.1:8000/modify?token="""+token
+# ret=send_email(message,"修改密码",["fengdushuo","1369162653@qq.com"])
+# if ret:
+#     print("邮件发送成功")
+# else:
+#     print("邮件发送失败")
+```
