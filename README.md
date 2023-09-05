@@ -8,6 +8,7 @@ CIC-IDS-2017
 python 3.0 or above  
 mysql 8.0  
 
+
 **网络流量数据可视化系统**
 
 **使用手册**
@@ -104,13 +105,13 @@ mysql 8.0
 
 本系统开发期间编译平台的操作系统为Windows 10 家庭中文版。硬件配置为：
 
-![](media/7a2ff3cac07024db6844b2b8d9fe1c54.png)
+![hardware](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/7a2ff3cac07024db6844b2b8d9fe1c54.png)
 
 本系统使用Visual Studio Code进行开发，需要使用相同软件进行开发编译。
 
 编译环境如下所示：
 
-![](media/571c8e8698a9cfd7ac3a59671b54fedc.png)
+![vscode](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/571c8e8698a9cfd7ac3a59671b54fedc.png)
 
 本系统使用的编程语言是python，版本是3.6.8。必需的Python程序库包括：tornado，opencv-python，matplotlib，PIL，pymysql，hashlib，csv，numpy等。编译本系统需要对应版本的Python和相应的库函数。
 
@@ -120,11 +121,11 @@ mysql 8.0
 
 入口函数：
 
-![](media/3a446a71e97467db1b3594f95acad14e.png)
+![main](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/3a446a71e97467db1b3594f95acad14e.png)
 
 编译运行成功画面：
 
-![](media/25f53d2539bb6656812dd7e164750693.png)
+![success](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/25f53d2539bb6656812dd7e164750693.png)
 
 # 系统配置说明
 
@@ -132,7 +133,7 @@ mysql 8.0
 
 由于Tornado提供了自己的httpserver，因此运行和部署它与其他PythonWeb框架有点不同。不是配置一个wsgi容器来查找应用程序，而是编写一个 main() 启动服务器的函数。
 
-![](media/6048af01eeae8f00489523b3d91cc457.png)
+![main](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/6048af01eeae8f00489523b3d91cc457.png)
 
 配置操作系统或进程管理器以运行此程序以启动服务器。
 
@@ -152,7 +153,7 @@ supervisor配置文件中添加：
 
 静态文件已经在程序中指定了路径：
 
-![](media/542d9739c43c4b9972194c8fdff7070e.png)
+![path](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/542d9739c43c4b9972194c8fdff7070e.png)
 
 # 系统运行说明
 
@@ -160,13 +161,13 @@ supervisor配置文件中添加：
 
 服务器端运行成功效果如图所示：
 
-![](media/b7a661ae33e06461ba5d82c79e3fffa7.png)
+![run](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/b7a661ae33e06461ba5d82c79e3fffa7.png)
 
 此时服务器已经启动，端口号为8000。运行服务器本地登录可以访问http://127.0.0.1:8000，内网登录可以访问http://内网IP:8000，外网登录可以访问http://外网IP:8000。
 
 访问登录界面如下所示：
 
-![](media/af13e304ac2462336cc4ac794cb2b6b8.png)
+![server](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/af13e304ac2462336cc4ac794cb2b6b8.png)
 
 # 系统操作说明
 
@@ -180,175 +181,175 @@ supervisor配置文件中添加：
 
 首先对于首次使用的用户，注册账号需要在首页点击注册按钮：
 
-![](media/9f4e78faeba15a272cff0c1843a770f8.png)
+![register](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/9f4e78faeba15a272cff0c1843a770f8.png)
 
 即可进入注册页面，需要用户提供用户名，邮箱，密码和密码确认等信息：
 
-![](media/3ca50d9e3011d39fc36d1eaedc09d261.png)
+![password](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/3ca50d9e3011d39fc36d1eaedc09d261.png)
 
 输入对应信息后，即可点击注册按钮，完成注册。
 
-![](media/0a4bdc684756b60fd45cd67bbee84fca.png)
+![register](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/0a4bdc684756b60fd45cd67bbee84fca.png)
 
 若注册不成功，会有对应的提示，此时根据提示进行相关修改即可。
 
-![](media/415b50c91a4f59f8841be8186111a345.png)
+![error](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/415b50c91a4f59f8841be8186111a345.png)
 
-![](media/a2c2d2af7096e8375cc79fd3125717aa.png)
+![warn](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/a2c2d2af7096e8375cc79fd3125717aa.png)
 
 注册成功的返回信息：
 
-![](media/98a2c47348f78081f54b686a44f34f05.png)
+![return](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/98a2c47348f78081f54b686a44f34f05.png)
 
 此时用户已经注册成功，即可返回登录（对于已经有帐号的用户，可直接执行这一步）。
 
-![](media/e2f21a09fc9c9a180ff34fda58a4b690.png)
+![success](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/e2f21a09fc9c9a180ff34fda58a4b690.png)
 
 ## 找回密码操作
 
 对于忘记账号密码的用户，系统提供找回密码功能，如下点击忘记密码按钮。
 
-![](media/ffcff3fe712910d937483d57eb7ef6d0.png)
+![forget](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/ffcff3fe712910d937483d57eb7ef6d0.png)
 
 此时进入找回密码页面，根据要求输入用户名和邮箱，并点击确定按钮发送找回密码邮件。
 
-![](media/b353f4e285b6d03ade4eb28ed703fc21.png)
+![mail](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/b353f4e285b6d03ade4eb28ed703fc21.png)
 
 邮件发送过程中出现如下提示，可稍等几秒钟。
 
-![](media/b3b2ac86310622d34ffce483fd8a7725.png)
+![second](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/b3b2ac86310622d34ffce483fd8a7725.png)
 
 邮件发送成功状态提示信息如图：
 
-![](media/fc48431741a900d09634aad39a188362.png)
+![tips](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/fc48431741a900d09634aad39a188362.png)
 
 此时检查邮箱中是否收到密码重置的邮件。
 
-![](media/93b6ff39425eb8edcd3e4c608d236b80.png)
+![reset](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/93b6ff39425eb8edcd3e4c608d236b80.png)
 
 点击密码重置链接，进入密码重置页面：
 
-![](media/d0bfa99bd0c09faca564682927b09dab.png)
+![page](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/d0bfa99bd0c09faca564682927b09dab.png)
 
 输入对应的用户名，邮箱和密码，进行密码重置：
 
-![](media/ddc1c6b685869a002bb2b3d0ed4229f0.png)
+![passwd](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/ddc1c6b685869a002bb2b3d0ed4229f0.png)
 
 若遇到错误提示，请按照提示修改对应信息。
 
-![](media/0c9e3f3692b59e47585487b751751aaf.png)
+![fix](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/0c9e3f3692b59e47585487b751751aaf.png)
 
 密码重置成功。
 
-![](media/e9c297f8153aa6b659f4860269c36334.png)
+![succ](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/e9c297f8153aa6b659f4860269c36334.png)
 
 使用重置的新密码进行登录，成功登录。
 
-![](media/daa8024d3845a29aecc79f8a2b51144d.png)
+![login](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/daa8024d3845a29aecc79f8a2b51144d.png)
 
 登录之后进入主页面，如下所示：
 
-![](media/944f4fdf6a92a7e747d5e0689af9a529.png)
+![mainpage](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/944f4fdf6a92a7e747d5e0689af9a529.png)
 
 ## 网络攻击数据显示
 
 用户可根据需求查看网络流量数据，数据来源于CIC-IDS-2017数据集，针对这一经典网络攻击数据集进行数据可视化分析操作。
 
-![](media/1ab470f61520a5bc5109face22b35aa6.png)
+![CIC-IDS-2017](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/1ab470f61520a5bc5109face22b35aa6.png)
 
 进入网络攻击数据显示模块。
 
-![](media/f4097de36dc79733007657d0b676d558.png)
+![show](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/f4097de36dc79733007657d0b676d558.png)
 
 根据需要执行不同数据的可视化操作。
 
 （1）攻击类型统计（饼状图和柱状图）
 
-![](media/8c07ddc4a6f9d8f39b5146d540956264.png)
+![type](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/8c07ddc4a6f9d8f39b5146d540956264.png)
 
 1.  攻击源IP和目的IP（力导向图）
 
-![](media/2d69d274e8328fde49910cac7e23e882.png)
+![ip](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/2d69d274e8328fde49910cac7e23e882.png)
 
 1.  时间戳对其他，根据数据集中的特征标签来命名坐标轴（折线图）
 
-![](media/fd6c374eb3d045050e6f731607f16650.png)
+![time](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/fd6c374eb3d045050e6f731607f16650.png)
 
 1.  其他对其他，根据数据集中的特征标签来命名坐标轴（折线图）
 
-![](media/205b8f2badf0251cf21e500bbfdbb7b0.png)
+![label](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/205b8f2badf0251cf21e500bbfdbb7b0.png)
 
 ## 上传数据操作
 
 针对用户上传的网络流量数据进行可视化分析。
 
-![](media/3a6415cd691293b5124bb81832fc3c19.png)
+![upload](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/3a6415cd691293b5124bb81832fc3c19.png)
 
 上传数据页面如下所示：
 
-![](media/ba5d735e0fcd77314de8eb2c6ef0448f.png)
+![upload_page](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/ba5d735e0fcd77314de8eb2c6ef0448f.png)
 
 点击“Choose File”按钮选择文件上传：
 
-![](media/12dbaf560a5590b66ca6dcf3f6f1e442.png)
+![choose](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/12dbaf560a5590b66ca6dcf3f6f1e442.png)
 
-![](media/3646e3fb1a74e91083c8a42ad1a4353e.png)
+![file](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/3646e3fb1a74e91083c8a42ad1a4353e.png)
 
 等待上传。
 
-![](media/dc348b949abcdecbaa3dcaaad5e76101.png)
+![wait](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/dc348b949abcdecbaa3dcaaad5e76101.png)
 
 上传成功。
 
-![](media/d562ccd5549e366a055905a8becb07ca.png)
+![success](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/d562ccd5549e366a055905a8becb07ca.png)
 
 点击“查看图表”按钮查看图表。
 
-![](media/2b1b9e1f5c0140f9ba511409bca31979.png)
+![chart](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/2b1b9e1f5c0140f9ba511409bca31979.png)
 
 选择对应标签进行可视化。
 
-![](media/d27406cc9ae71e431cc8acb82fdecd0a.png)
+![labels](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/d27406cc9ae71e431cc8acb82fdecd0a.png)
 
 选择单列标签进行可视化，点击确定。
 
-![](media/7dca74e5a4117d4a7fda048e63ce06c3.png)
+![one](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/7dca74e5a4117d4a7fda048e63ce06c3.png)
 
 获取单列标签对应的可视化图表。
 
-![](media/077cd5ca2f7e3aa74bffd99bd6c426f0.png)
+![vis](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/077cd5ca2f7e3aa74bffd99bd6c426f0.png)
 
 选择双列标签进行可视化，点击确定。
 
-![](media/0f9353a56e5d219f5eb3c6dc36e08453.png)
+![two](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/0f9353a56e5d219f5eb3c6dc36e08453.png)
 
 获取双列标签对应的可视化图表。
 
-![](media/4aae325d20fe16613e82fe92653c3fce.png)
+![vis](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/4aae325d20fe16613e82fe92653c3fce.png)
 
-## 操作流程示意图![](media/4cced74dee31116e0011e8c793649a4c.emf)
+## 操作流程示意图![operate](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/4cced74dee31116e0011e8c793649a4c.emf)
 
 # 系统后台监测
 
 系统后台运行成功提示：
 
-![](media/5fbdc925860ac394b0446e52cbc039b8.png)
+![server](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/5fbdc925860ac394b0446e52cbc039b8.png)
 
 进入登录界面：
 
-![](media/f843b33e607bb7a463321c651d6d6390.png)
+![index](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/f843b33e607bb7a463321c651d6d6390.png)
 
 登录：
 
-![](media/e155d8cee77570f61ac341cd86914a08.png)
+![login](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/e155d8cee77570f61ac341cd86914a08.png)
 
 进行数据可视化查看：
 
-![](media/94396830e0f211c4d32bb73ac4969a17.png)
+![vis](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/94396830e0f211c4d32bb73ac4969a17.png)
 
 上传文件进行数据可视化操作：
 
-![](media/60b8feafd2376ae38ffce584206c0d77.png)
+![vis](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/60b8feafd2376ae38ffce584206c0d77.png)
 
 # 部分功能支持说明
 
@@ -368,25 +369,25 @@ Tornado是非阻塞式的轻量级的Web服务器，使用Python编写。其非�
 
 本系统中找回密码功能主要使用邮件验证的方式。用户向服务器提交重置密码的请求，服务器会向用户的邮箱发送重置密码邮件，用户点击重置链接即可重置账号密码。重置密码的邮箱配置需要对应修改为管理员的配置。
 
-![](media/83b21adc8dbfb30ecbc94cd75a5bb86d.png)
+![pass](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/83b21adc8dbfb30ecbc94cd75a5bb86d.png)
 
 重置密码邮箱配置的对应函数：
 
-![](media/a34d6396dc04fd2f5f0f8caa8ce6e8b6.png)
+![reset](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/a34d6396dc04fd2f5f0f8caa8ce6e8b6.png)
 
 # 系统数据库说明
 
 数据库使用的是mysql8.0.27，如下：
 
-![](media/aae179c836aaf213a4dd33065d8cd0b1.png)
+![mysql](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/aae179c836aaf213a4dd33065d8cd0b1.png)
 
 创建一个数据库login_db 对应于注册登录的用户login_db数据库：
 
-![](media/19cd65796da40b43a2773b0f96c3e3ee.png)
+![login_db](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/19cd65796da40b43a2773b0f96c3e3ee.png)
 
 users数据表中字段详情：
 
-![](media/c135bc81164117a3935ed676ee0e570a.png)
+![users](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/c135bc81164117a3935ed676ee0e570a.png)
 
 # 配置脚本文件
 
