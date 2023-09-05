@@ -143,12 +143,102 @@ supervisord是用Python实现的一款很是实用的进程管理工具。使用
 
 supervisor配置文件中添加：
 
-| [program:tornado-8000] command=python /var/www/main.py --port=8000 directory=/var/www user=www-data autorestart=true redirect_stderr=true stdout_logfile=/var/log/tornado.log loglevel=info  [program:tornado-8001] command=python /var/www/main.py --port=8001 directory=/var/www user=www-data autorestart=true redirect_stderr=true stdout_logfile=/var/log/tornado.log loglevel=info |
+| 
+[program:tornado-8000]
+command=python /var/www/main.py --port=8000
+directory=/var/www
+user=www-data
+autorestart=true
+redirect_stderr=true
+stdout_logfile=/var/log/tornado.log
+loglevel=info
+
+[program:tornado-8001]
+command=python /var/www/main.py --port=8001
+directory=/var/www
+user=www-data
+autorestart=true
+redirect_stderr=true
+stdout_logfile=/var/log/tornado.log
+loglevel=info 
+|
 |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 
 对于更复杂的部署，建议独立启动进程，并让每个进程侦听不同的端口。当每个进程使用不同的端口时，通常需要一个外部负载均衡器（如nginx）向外部访问者提供一个地址。下面给出一个nginx的配置文件，nginx和tornado服务器在同一台机器上运行，四台tornado服务器在端口8000-8003上运行：
 
-| user nginx; worker_processes 1;  error_log /var/log/nginx/error.log; pid /var/run/nginx.pid;  events {  worker_connections 1024;  use epoll; }  http {  \# Enumerate all the Tornado servers here  upstream frontends {  server 127.0.0.1:8000;  server 127.0.0.1:8001;  server 127.0.0.1:8002;  server 127.0.0.1:8003;  }   include /etc/nginx/mime.types;  default_type application/octet-stream;   access_log /var/log/nginx/access.log;   keepalive_timeout 65;  proxy_read_timeout 200;  sendfile on;  tcp_nopush on;  tcp_nodelay on;  gzip on;  gzip_min_length 1000;  gzip_proxied any;  gzip_types text/plain text/html text/css text/xml  application/x-javascript application/xml  application/atom+xml text/javascript;   \# Only retry if there was a communication error, not a timeout  \# on the Tornado server (to avoid propagating "queries of death"  \# to all frontends)  proxy_next_upstream error;   server {  listen 80;   \# Allow file uploads  client_max_body_size 50M;   location \^\~ /static/ {  root /var/www;  if (\$query_string) {  expires max;  }  }  location = /favicon.ico {  rewrite (.\*) /static/favicon.ico;  }  location = /robots.txt {  rewrite (.\*) /static/robots.txt;  }   location / {  proxy_pass_header Server;  proxy_set_header Host \$http_host;  proxy_redirect off;  proxy_set_header X-Real-IP \$remote_addr;  proxy_set_header X-Scheme \$scheme;  proxy_pass http://frontends;  }  } }  |
+| 
+user nginx;
+worker_processes 1;
+
+error_log /var/log/nginx/error.log;
+pid /var/run/nginx.pid;
+
+events {
+    worker_connections 1024;
+    use epoll;
+}
+
+http {
+    # Enumerate all the Tornado servers here
+    upstream frontends {
+        server 127.0.0.1:8000;
+        server 127.0.0.1:8001;
+        server 127.0.0.1:8002;
+        server 127.0.0.1:8003;
+    }
+
+    include /etc/nginx/mime.types;
+    default_type application/octet-stream;
+
+    access_log /var/log/nginx/access.log;
+
+    keepalive_timeout 65;
+    proxy_read_timeout 200;
+    sendfile on;
+    tcp_nopush on;
+    tcp_nodelay on;
+    gzip on;
+    gzip_min_length 1000;
+    gzip_proxied any;
+    gzip_types text/plain text/html text/css text/xml
+               application/x-javascript application/xml
+               application/atom+xml text/javascript;
+
+    # Only retry if there was a communication error, not a timeout
+    # on the Tornado server (to avoid propagating "queries of death"
+    # to all frontends)
+    proxy_next_upstream error;
+
+    server {
+        listen 80;
+
+        # Allow file uploads
+        client_max_body_size 50M;
+
+        location ^~ /static/ {
+            root /var/www;
+            if ($query_string) {
+                expires max;
+            }
+        }
+        location = /favicon.ico {
+            rewrite (.*) /static/favicon.ico;
+        }
+        location = /robots.txt {
+            rewrite (.*) /static/robots.txt;
+        }
+
+        location / {
+            proxy_pass_header Server;
+            proxy_set_header Host $http_host;
+            proxy_redirect off;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Scheme $scheme;
+            proxy_pass http://frontends;
+        }
+    }
+} 
+|
 |--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 
 静态文件已经在程序中指定了路径：
