@@ -244,7 +244,9 @@ http {
 
 ![media/b7a661ae33e06461ba5d82c79e3fffa7.png](https://github.com/FengDushuo/Visualization-of-network-attack/tree/master/media/b7a661ae33e06461ba5d82c79e3fffa7.png)
 
-此时服务器已经启动，端口号为8000。运行服务器本地登录可以访问http://127.0.0.1:8000，内网登录可以访问http://内网IP:8000，外网登录可以访问http://外网IP:8000。
+此时服务器已经启动，端口号为8000。运行服务器本地登录可以访问http://127.0.0.1:8000，  
+内网登录可以访问http://内网IP:8000， 
+外网登录可以访问http://外网IP:8000。  
 
 访问登录界面如下所示：
 
